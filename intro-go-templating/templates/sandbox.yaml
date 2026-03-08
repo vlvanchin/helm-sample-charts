@@ -1,0 +1,3 @@
+# i am a yaml comment and i will be ignored and remain in the final output
+{{/* this is a go template comment and will not be included in the final output */}}
+test: {{ .Values.test }}
