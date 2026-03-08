@@ -1,3 +1,16 @@
 # i am a yaml comment and i will be ignored and remain in the final output
-{{/* this is a go template comment and will not be included in the final output */}}
-test: {{ .Values.test }}
+{{- /* this is a go template comment and will not be included in the final output */}}
+{{- /* <function name> <argument1> <argument2> ... */}}
+test: {{ lower .Values.test | replace " " "-" | trim}}
+labels: 
+  {{- /* the app label comes fromt the release name and the chart label comes from the chart name */}}
+  app: {{ .Release.Name }}
+  {{- /* the chart name comes from the chart.yaml file */}}
+  chart: {{ .Chart.Name }}
+  {{- if eq .Values.environment "production" }}
+  environment: production
+  build: stable
+  {{- else }}
+  environment: dev
+  build: alpha
+  {{- end }}
